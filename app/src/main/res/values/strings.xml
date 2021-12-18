@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Weather</string>
+    <string name="city_name_text_view">- - - -</string>
+    <string name="search_city_hint">Search city…</string>
+    <string name="temperature_text_view">- -\u00B0C</string>
+    <string name="condition_text_view">Condition</string>
+    <string name="today">HOURLY FORECAST</string>
+    <string name="dailyForecast">DAILY FORECAST</string>
+    <string name="card_backg_time_text_view">---</string>
+    <string name="card_temperature_text_view">--</string>
+    <string name="conditionIconContentDescription">conditionIcon</string>
+    <string name="searchImageView">searchImageView</string>
+    <string name="dayBackgroundImageView">dayBackgroundImageView</string>
+    <string name="nightBackgroundImageView">nightBackgroundImageView</string>
+    <string name="feelsLikeTempText">feels like</string>
+    <string name="feelsLikeTemp">- -\u00B0C</string>
+    <string name="forecastDay">Forecast Day</string>
+    <string name="aqi">AIR QUALITY</string>
+    <string name="aqiDescription">Good</string>
+    <string name="aqiIndexValue">28</string>
+    <string name="aqiIndexSource">US AQI</string>
+    <string name="pm25">pm2.5</string>
+    <string name="pm10">pm10</string>
+    <string name="co">CO</string>
+    <string name="so2">SO2</string>
+    <string name="no2">NO2</string>
+    <string name="o3">O3</string>
+    <string name="iaqi">---</string>
+    <string name="noAqiData">Sorry, no data available for this location</string>
+    <string name="aqiExternalLink">more details</string>
+    <string name="powered_by">Powered by </string>
+    <string name="waqi">World Air Quality Index </string>
+</resources>

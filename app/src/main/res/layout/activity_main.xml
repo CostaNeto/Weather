@@ -1,0 +1,960 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <ProgressBar
+        android:id="@+id/loadingProgressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/weather"
+        android:visibility="invisible" />
+
+    <RelativeLayout
+        android:id="@+id/homeRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/editTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/search_layout"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <EditText
+                android:id="@+id/cityInputEditText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_weight="4.5"
+                android:background="@null"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/search_city_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="#A7A9AC"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageView
+                android:id="@+id/searchImageView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0.5"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/searchImageView"
+                android:src="@drawable/ic_search"
+                app:tint="#A7A9AC" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/allInfoScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/editTextLayout">
+
+            <LinearLayout
+                android:id="@+id/allInfoLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/panelRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp">
+
+                    <ImageView
+                        android:id="@+id/panelImageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="panelBackground"
+                        android:cropToPadding="false"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/day_panel_background_1" />
+
+                    <TextView
+                        android:id="@+id/cityNameTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto_thin"
+                        android:text="@string/city_name_text_view"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/iconHolderRelativeLayout"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="15dp"
+                        android:background="@drawable/condition_icon_background1">
+
+                        <ImageView
+                            android:id="@+id/conditionImageView"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:contentDescription="@string/conditionIconContentDescription"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/empty"
+                            tools:ignore="ImageContrastCheck" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/temperatureTextView"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="13dp"
+                        android:layout_toEndOf="@id/iconHolderRelativeLayout"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/temperature_text_view"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="70sp" />
+
+                    <TextView
+                        android:id="@+id/conditionTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/temperatureTextView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="50dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="@string/condition_text_view"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/panelMaxAndMinTempRelativeLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp">
+
+                        <LinearLayout
+                            android:id="@+id/feelsLikeTextLinearLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:id="@+id/feelsLikeTextView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/feelsLikeTempText"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/feelsLikeTempLinearLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/feelsLikeTextLinearLayout"
+                            android:layout_alignParentBottom="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/feelsLikeTempTextView"
+                                android:layout_width="45dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/feelsLikeTemp"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/hourlyForecastRecyclerViewHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/extra_info_views_background"
+                    android:elevation="18dp"
+                    android:outlineAmbientShadowColor="#FF000000"
+                    android:outlineSpotShadowColor="#35000000">
+
+                    <TextView
+                        android:id="@+id/forecastIndicatorTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/today"
+                        android:textColor="#C6C6C6" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/weatherRecycleView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/forecastIndicatorTextView"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:orientation="horizontal"
+                        android:requiresFadingEdge="horizontal|vertical"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/dailyForecastRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/extra_info_views_background"
+                    android:elevation="18dp"
+                    android:outlineAmbientShadowColor="#FF000000"
+                    android:outlineSpotShadowColor="#35000000">
+
+                    <TextView
+                        android:id="@+id/dailyForecastTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/dailyForecast"
+                        android:textColor="#C6C6C6" />
+
+                    <RelativeLayout
+                        android:id="@+id/daysForecastHolder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/dailyForecastTextView"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp">
+
+                        <LinearLayout
+                            android:id="@+id/forecastDay1LinearLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/forecastDay1TextView"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/forecastDay"
+                                android:textSize="16sp" />
+
+                            <RelativeLayout
+                                android:id="@+id/forecastConditionIconHolder"
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp">
+
+                                <ImageView
+                                    android:id="@+id/forecastConditionIcon"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/empty" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/forecastMaxTempArrow"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="30dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/up_arrow_gray" />
+
+                            <TextView
+                                android:id="@+id/forecastMaxTempTextView"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/temperature_text_view" />
+
+                            <ImageView
+                                android:id="@+id/forecastMinTempArrow"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/down_arrow_gray" />
+
+                            <TextView
+                                android:id="@+id/forecastMinTempTextView"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/temperature_text_view" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/forecastDay2LinearLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_below="@+id/forecastDay1LinearLayout"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/forecastDay2TextView"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/forecastDay"
+                                android:textSize="16sp" />
+
+                            <RelativeLayout
+                                android:id="@+id/forecastConditionIconHolder2"
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp">
+
+                                <ImageView
+                                    android:id="@+id/forecastConditionIcon2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/empty" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/forecastMaxTempArrow2"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="30dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/up_arrow_gray" />
+
+                            <TextView
+                                android:id="@+id/forecastMaxTempTextView2"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/temperature_text_view" />
+
+                            <ImageView
+                                android:id="@+id/forecastMinTempArrow2"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/down_arrow_gray" />
+
+                            <TextView
+                                android:id="@+id/forecastMinTempTextView2"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/temperature_text_view" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/forecastDay3LinearLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:layout_below="@+id/forecastDay2LinearLayout"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/forecastDay3TextView"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/roboto"
+                                android:text="@string/forecastDay"
+                                android:textSize="16sp" />
+
+                            <RelativeLayout
+                                android:id="@+id/forecastConditionIconHolder3"
+                                android:layout_width="30dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp">
+
+                                <ImageView
+                                    android:id="@+id/forecastConditionIcon3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/empty" />
+
+                            </RelativeLayout>
+
+                            <ImageView
+                                android:id="@+id/forecastMaxTempArrow3"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="30dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/up_arrow_gray" />
+
+                            <TextView
+                                android:id="@+id/forecastMaxTempTextView3"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/temperature_text_view" />
+
+                            <ImageView
+                                android:id="@+id/forecastMinTempArrow3"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/down_arrow_gray" />
+
+                            <TextView
+                                android:id="@+id/forecastMinTempTextView3"
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="5dp"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="@string/temperature_text_view" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/aqiRelativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="50dp"
+                    android:background="@drawable/extra_info_views_background"
+                    android:elevation="18dp"
+                    android:outlineAmbientShadowColor="#FF000000"
+                    android:outlineSpotShadowColor="#35000000">
+
+                    <TextView
+                        android:id="@+id/aqiTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="@string/aqi"
+                        android:textColor="#C6C6C6" />
+
+                    <RelativeLayout
+                        android:id="@+id/allAqiInfoHolder"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/aqiTextView"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:visibility="invisible">
+
+                        <RelativeLayout
+                            android:id="@+id/mainAndSecondAqiInfoHolder"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RelativeLayout
+                                android:id="@+id/mainAqiInfoHolder"
+                                android:layout_width="130dp"
+                                android:layout_height="130dp"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/extra_info_views_background">
+
+                                <TextView
+                                    android:id="@+id/aqiDescriptionTextView"
+                                    android:layout_width="100dp"
+                                    android:layout_height="30dp"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="15dp"
+                                    android:autoSizeMaxTextSize="24sp"
+                                    android:autoSizeTextType="uniform"
+                                    android:fontFamily="@font/roboto_light"
+                                    android:gravity="center"
+                                    android:text="@string/aqiDescription"
+                                    android:textColor="#555555"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/aqiIndexValueTextView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="45dp"
+                                    android:fontFamily="@font/roboto_light"
+                                    android:gravity="center"
+                                    android:text="@string/aqiIndexValue"
+                                    android:textColor="#555555"
+                                    android:textSize="34sp" />
+
+                                <TextView
+                                    android:id="@+id/aqiIndexSourceTextView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/aqiIndexValueTextView"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/roboto_light"
+                                    android:gravity="center"
+                                    android:text="@string/aqiIndexSource"
+                                    android:textColor="#555555"
+                                    android:textSize="14sp" />
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:id="@+id/secondAqiInfoHolder"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_toEndOf="@id/mainAqiInfoHolder">
+
+                                <LinearLayout
+                                    android:id="@+id/aqiPollutantsLinearLayout"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2">
+
+                                    <RelativeLayout
+                                        android:id="@+id/pm25RelativeLayout"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1">
+
+                                        <View
+                                            android:id="@+id/pm25View"
+                                            android:layout_width="5dp"
+                                            android:layout_height="20dp"
+                                            android:layout_centerVertical="true"
+                                            android:background="@drawable/iaqi_indicator" />
+
+                                        <TextView
+                                            android:id="@+id/pm25TextView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/pm25View"
+                                            android:fontFamily="@font/roboto_bold"
+                                            android:text="@string/pm25" />
+
+                                        <TextView
+                                            android:id="@+id/pm25IVTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/pm25TextView"
+                                            android:autoSizeTextType="uniform"
+                                            android:fontFamily="@font/roboto"
+                                            android:text="@string/iaqi"
+                                            android:textAlignment="viewStart" />
+
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/pm10RelativeLayout"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_weight="1">
+
+                                        <View
+                                            android:id="@+id/pm10View"
+                                            android:layout_width="5dp"
+                                            android:layout_height="20dp"
+                                            android:layout_centerVertical="true"
+                                            android:background="@drawable/iaqi_indicator" />
+
+                                        <TextView
+                                            android:id="@+id/pm10TextView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/pm10View"
+                                            android:fontFamily="@font/roboto_bold"
+                                            android:text="@string/pm10" />
+
+                                        <TextView
+                                            android:id="@+id/pm10IVTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/pm10TextView"
+                                            android:autoSizeTextType="uniform"
+                                            android:fontFamily="@font/roboto"
+                                            android:text="@string/iaqi"
+                                            android:textAlignment="viewStart" />
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/aqiPollutantsLinearLayout2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_below="@id/aqiPollutantsLinearLayout"
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2">
+
+                                    <RelativeLayout
+                                        android:id="@+id/coRelativeLayout"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1">
+
+                                        <View
+                                            android:id="@+id/coView"
+                                            android:layout_width="5dp"
+                                            android:layout_height="20dp"
+                                            android:layout_centerVertical="true"
+                                            android:background="@drawable/iaqi_indicator" />
+
+                                        <TextView
+                                            android:id="@+id/coTextView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/coView"
+                                            android:fontFamily="@font/roboto_bold"
+                                            android:text="@string/co" />
+
+                                        <TextView
+                                            android:id="@+id/coIVTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/coTextView"
+                                            android:autoSizeTextType="uniform"
+                                            android:fontFamily="@font/roboto"
+                                            android:text="@string/iaqi"
+                                            android:textAlignment="viewStart" />
+
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/so2RelativeLayout"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_weight="1">
+
+                                        <ImageView
+                                            android:id="@+id/so2View"
+                                            android:layout_width="5dp"
+                                            android:layout_height="20dp"
+                                            android:layout_centerVertical="true"
+                                            android:background="@drawable/iaqi_indicator" />
+
+                                        <TextView
+                                            android:id="@+id/so2TextView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/so2View"
+                                            android:fontFamily="@font/roboto_bold"
+                                            android:text="@string/so2" />
+
+                                        <TextView
+                                            android:id="@+id/so2IVTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/so2TextView"
+                                            android:autoSizeTextType="uniform"
+                                            android:fontFamily="@font/roboto"
+                                            android:text="@string/iaqi"
+                                            android:textAlignment="viewStart" />
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/aqiPollutantsLinearLayout3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="40dp"
+                                    android:layout_below="@id/aqiPollutantsLinearLayout2"
+                                    android:layout_marginTop="5dp"
+                                    android:orientation="horizontal"
+                                    android:weightSum="2">
+
+                                    <RelativeLayout
+                                        android:id="@+id/no2RelativeLayout"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1">
+
+                                        <ImageView
+                                            android:id="@+id/no2View"
+                                            android:layout_width="5dp"
+                                            android:layout_height="20dp"
+                                            android:layout_centerVertical="true"
+                                            android:background="@drawable/iaqi_indicator" />
+
+                                        <TextView
+                                            android:id="@+id/no2TextView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/no2View"
+                                            android:fontFamily="@font/roboto_bold"
+                                            android:text="@string/no2" />
+
+                                        <TextView
+                                            android:id="@+id/no2IVTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/no2TextView"
+                                            android:autoSizeTextType="uniform"
+                                            android:fontFamily="@font/roboto"
+                                            android:text="@string/iaqi"
+                                            android:textAlignment="viewStart" />
+
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/o3RelativeLayout"
+                                        android:layout_width="0dp"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_weight="1">
+
+                                        <ImageView
+                                            android:id="@+id/o3View"
+                                            android:layout_width="5dp"
+                                            android:layout_height="20dp"
+                                            android:layout_centerVertical="true"
+                                            android:background="@drawable/iaqi_indicator" />
+
+                                        <TextView
+                                            android:id="@+id/o3TextView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/o3View"
+                                            android:fontFamily="@font/roboto_bold"
+                                            android:text="@string/o3" />
+
+                                        <TextView
+                                            android:id="@+id/o3IVTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginStart="5dp"
+                                            android:layout_toEndOf="@id/o3TextView"
+                                            android:autoSizeTextType="uniform"
+                                            android:fontFamily="@font/roboto"
+                                            android:text="@string/iaqi"
+                                            android:textAlignment="viewStart" />
+
+                                    </RelativeLayout>
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mainAndSecondAqiInfoHolder"
+                            android:layout_marginTop="20dp">
+
+                            <LinearLayout
+                                android:id="@+id/aqiExternalLinkLL"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:src="@drawable/ic_baseline_info_24" />
+
+                                <TextView
+                                    android:id="@+id/aqiMoreInfoTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="2dp"
+                                    android:fontFamily="@font/roboto_light"
+                                    android:gravity="center"
+                                    android:text="@string/aqiExternalLink"
+                                    android:textSize="12sp"
+                                    android:textStyle="italic" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/noAqiDataTextView"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/roboto_light"
+                        android:text="@string/noAqiData"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/poweredByTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="@font/roboto"
+                            android:text="@string/powered_by" />
+
+                        <ImageView
+                            android:id="@+id/weatherApiSourceImageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_below="@id/poweredByTextView"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="15dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/weatherapi_logo" />
+
+                        <TextView
+                            android:id="@+id/waqiTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_below="@id/weatherApiSourceImageView"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="@string/waqi"
+                            android:textColor="#1A72B8" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

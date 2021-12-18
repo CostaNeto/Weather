@@ -1,4 +1,4 @@
-# Weather
+# Weather App
 Weather app with 
 - Current Weather Data
 - 24h-hour Weather Data

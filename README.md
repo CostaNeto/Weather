@@ -5,7 +5,7 @@ Weather app with
 - 3-day Forecast
 - AQI Data
 
-Downloadable apk file is avilable at Weather.rar.
+Downloadable apk file is avilable as Weather.rar.
 
 The current location is detected automatically (or sometimes not). One can always access the search bar to find a desired city.
 AQI information isn't garanteed for all locations, but the database includes most of the well known ones.

@@ -20,6 +20,8 @@ APIs used:
 - [WeatherAPI](https://www.weatherapi.com/);
 - [API - Air Quality Programmatic APIs](https://aqicn.org/api/).
 
+
+
 Knowledge obtained whilst developing this app:
 - a better usage of RelativeLayout, LinearLayout, and the other views;
 - creating and managing diferent resource files (xml), as well as properly linking them to their destinations;

@@ -15,6 +15,7 @@ Remember to turn on your device location and kindly provide the app with the per
 
 ## Attribuitions and personal notes
 Based on the following YouTube Tutorial: https://www.youtube.com/watch?v=q7NF-2gtfEU&t=3187s
+
 APIs used:
 - [WeatherAPI](https://www.weatherapi.com/);
 - [API - Air Quality Programmatic APIs](https://aqicn.org/api/).

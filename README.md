@@ -8,7 +8,7 @@ Weather app with
 
 Download apk file at [Weather.rar](./Weather.rar).
 
-The current location is detected automatically (or sometimes not). One can always access the search bar to find the desired city.
+The current location is detected automatically. One can always access the search bar to find the desired city.
 AQI information isn't guaranteed for all locations, but the database includes most of the well-known ones.
 
 Remember to turn on your device location and kindly provide the app with permission to use that information.

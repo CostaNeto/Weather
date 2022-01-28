@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         // Main panel
         panelImageView = findViewById(R.id.panelImageView);
         cityNameTextView = findViewById(R.id.cityNameTextView);
-        iconHolderRelativeLayout = (RelativeLayout) findViewById(R.id.iconHolderRelativeLayout);
+        iconHolderRelativeLayout = findViewById(R.id.iconHolderRelativeLayout);
         conditionImageView = findViewById(R.id.conditionImageView);
         temperatureTextView = findViewById(R.id.temperatureTextView);
         feelsLikeTempTextView = findViewById(R.id.feelsLikeTempTextView);
@@ -302,7 +302,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @SuppressLint("LongLogTag")
     private void getCityName(Double latitude, Double longitude) {
 
@@ -325,9 +324,6 @@ public class MainActivity extends AppCompatActivity {
         cityNameRequest.add(myRequest);
     }
 
-
-
-
     @SuppressLint("LongLogTag")
     private void getWeatherInfo(String cityName) {
         // total day count = 8 (Today + 7 for forecast starting from tomorrow)
@@ -335,6 +331,7 @@ public class MainActivity extends AppCompatActivity {
         String url = "http://api.weatherapi.com/v1/forecast.json?key=5fc40f1ab42e46f681b174505212010&q=" + city + "&days=8&aqi=yes&alerts=yes";
         cityNameTextView.setText(cityName);
 
+        // Weather Information
         @SuppressLint({"NotifyDataSetChanged", "SetTextI18n", "SimpleDateFormat"})
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 url,null,
@@ -539,14 +536,19 @@ public class MainActivity extends AppCompatActivity {
         weatherInfoRequest.add(jsonObjectRequest);
 
 
-
+        /*
+            Here we get the AQI information.
+            We're using a new API, from the World Air Quality Index Project.
+            We get the values and change the color of indicators accordingly.
+         */
         String aqiUrl = "https://api.waqi.info/feed/" + city + "/?token=ed0060f8729cc5298a60ba3f3f6e408267302afa";
-
         @SuppressLint("SetTextI18n")
         JsonObjectRequest aqiDataRequest = new JsonObjectRequest(Request.Method.GET, aqiUrl, null, response -> {
             try {
 //                Log.e("aqi_response", response.toString());
-                if (response.getString("status").equals("ok")) { // if country is in API's database
+
+                // if country is in API's database
+                if (response.getString("status").equals("ok")) {
 
                     allAqiInfoHolder.setVisibility(View.VISIBLE);
                     noAqiDataTextView.setVisibility(View.INVISIBLE);
@@ -578,8 +580,8 @@ public class MainActivity extends AppCompatActivity {
 
                     // individual aqi JsonObject
                     JSONObject iaqiJsonObject = response.getJSONObject("data").getJSONObject("iaqi");
-
-                    // check if iaqi values are present in Json file. if yes, then display them. otherwise, set placeholder text.
+                    // check if iaqi values are present in Json file. if yes, then display them.
+                    // otherwise, set placeholder text and the according neutral color
                     if (iaqiJsonObject.has("pm25")) {
                         String pm25Value = iaqiJsonObject.getJSONObject("pm25").getString("v"); Log.e("PM25_VALUE", pm25Value);
                         pm25IVTextView.setText(pm25Value);
@@ -702,7 +704,9 @@ public class MainActivity extends AppCompatActivity {
                         o3View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#898888")));
                     }
 
-                } else { // if country isn't in API's database
+                }
+                // if country isn't in API's database
+                else {
                     allAqiInfoHolder.setVisibility(View.INVISIBLE);
                     noAqiDataTextView.setVisibility(View.VISIBLE);
                 }
@@ -714,15 +718,11 @@ public class MainActivity extends AppCompatActivity {
         weatherInfoRequest.add(aqiDataRequest);
     }
 
-
-
     public static Drawable changeDrawableColor(Context context,int background, int newColor) {
         Drawable mDrawable = Objects.requireNonNull(ContextCompat.getDrawable(context, background)).mutate();
         mDrawable.setColorFilter(new PorterDuffColorFilter(newColor, PorterDuff.Mode.SRC_IN));
         return mDrawable;
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

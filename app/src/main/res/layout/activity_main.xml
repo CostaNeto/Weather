@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <LinearLayout
             android:id="@+id/editTextLayout"
@@ -139,11 +139,12 @@
                     <TextView
                         android:id="@+id/temperatureTextView"
                         android:layout_width="160dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="100dp"
                         android:layout_centerInParent="true"
                         android:layout_marginStart="13dp"
                         android:layout_toEndOf="@id/iconHolderRelativeLayout"
                         android:autoSizeMaxTextSize="70sp"
+                        android:autoSizeMinTextSize="50sp"
                         android:autoSizeTextType="uniform"
                         android:fontFamily="@font/roboto"
                         android:text="@string/temperature_text_view"

@@ -526,7 +526,6 @@ public class MainActivity extends AppCompatActivity {
                         tempHolder2 = tempHolder1.replace(".", "");
                         minTemp = tempHolder2.substring(0, tempHolder2.length() - 1);
                         forecastMinTempTextView3.setText(minTemp + "\u00b0C");
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -586,18 +585,7 @@ public class MainActivity extends AppCompatActivity {
                         String pm25Value = iaqiJsonObject.getJSONObject("pm25").getString("v"); Log.e("PM25_VALUE", pm25Value);
                         pm25IVTextView.setText(pm25Value);
                         double pm25 = Double.parseDouble(pm25Value);
-                        if (pm25 >= 0 && pm25 <= 50)
-                            pm25View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#7ECF7C")));
-                        else if (pm25 >= 51 && pm25 <= 100)
-                            pm25View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FCEE70")));
-                        else if (pm25 >= 101 && pm25 <= 150)
-                            pm25View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FDAD50")));
-                        else if (pm25 >= 151 && pm25 <= 200)
-                            pm25View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
-                        else if (pm25 >= 200 && pm25 <= 300)
-                            pm25View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#C17EBB")));
-                        else
-                            pm25View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
+                        changeViewColor(pm25, pm25View);
                     } else {
                         pm25IVTextView.setText("---");
                         pm25View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#898888")));
@@ -606,18 +594,7 @@ public class MainActivity extends AppCompatActivity {
                         String pm10Value = iaqiJsonObject.getJSONObject("pm10").getString("v"); Log.e("PM10_VALUE", pm10Value);
                         pm10IVTextView.setText(pm10Value);
                         double pm10 = Double.parseDouble(pm10Value);
-                        if (pm10 >= 0 && pm10 <= 50)
-                            pm10View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#7ECF7C")));
-                        else if (pm10 >= 51 && pm10 <= 100)
-                            pm10View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FCEE70")));
-                        else if (pm10 >= 101 && pm10 <= 150)
-                            pm10View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FDAD50")));
-                        else if (pm10 >= 151 && pm10 <= 200)
-                            pm10View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
-                        else if (pm10 >= 200 && pm10 <= 300)
-                            pm10View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#C17EBB")));
-                        else
-                            pm10View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
+                        changeViewColor(pm10, pm10View);
                     } else {
                         pm10IVTextView.setText("---");
                         pm10View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#898888")));
@@ -626,19 +603,7 @@ public class MainActivity extends AppCompatActivity {
                         String coValue =iaqiJsonObject.getJSONObject("co").getString("v"); Log.e("CO_VALUE", coValue);
                         coIVTextView.setText(coValue);
                         double co = Double.parseDouble(coValue);
-                        if (co >= 0 && co <= 50)
-                            coView.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#7ECF7C")));
-                        else if (co >= 51 && co <= 100)
-                            coView.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FCEE70")));
-                        else if (co >= 101 && co <= 150)
-                            coView.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FDAD50")));
-                        else if (co >= 151 && co <= 200)
-                            coView.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
-                        else if (co >= 200 && co <= 300)
-                            coView.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#C17EBB")));
-                        else
-                            coView.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
-
+                        changeViewColor(co, coView);
                     } else {
                         coIVTextView.setText("---");
                         coView.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#898888")));
@@ -647,18 +612,7 @@ public class MainActivity extends AppCompatActivity {
                         String so2Value = iaqiJsonObject.getJSONObject("so2").getString("v"); Log.e("SO2_VALUE", so2Value);
                         so2IVTextView.setText(so2Value);
                         double so2 = Double.parseDouble(so2Value);
-                        if (so2 >= 0 && so2 <= 50)
-                            so2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#7ECF7C")));
-                        else if (so2 >= 51 && so2 <= 100)
-                            so2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FCEE70")));
-                        else if (so2 >= 101 && so2 <= 150)
-                            so2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FDAD50")));
-                        else if (so2 >= 151 && so2 <= 200)
-                            so2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
-                        else if (so2 >= 200 && so2 <= 300)
-                            so2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#C17EBB")));
-                        else
-                            so2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
+                        changeViewColor(so2, so2View);
                     } else {
                         so2IVTextView.setText("---");
                         so2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#898888")));
@@ -667,18 +621,7 @@ public class MainActivity extends AppCompatActivity {
                         String no2Value = iaqiJsonObject.getJSONObject("no2").getString("v"); Log.e("NO2_VALUE", no2Value);
                         no2IVTextView.setText(no2Value);
                         double no2 = Double.parseDouble(no2Value);
-                        if (no2 >= 0 && no2 <= 50)
-                            no2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#7ECF7C")));
-                        else if (no2 >= 51 && no2 <= 100)
-                            no2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FCEE70")));
-                        else if (no2 >= 101 && no2 <= 150)
-                            no2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FDAD50")));
-                        else if (no2 >= 151 && no2 <= 200)
-                            no2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
-                        else if (no2 >= 200 && no2 <= 300)
-                            no2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#C17EBB")));
-                        else
-                            no2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
+                        changeViewColor(no2, no2View);
                     } else {
                         no2IVTextView.setText("---");
                         no2View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#898888")));
@@ -687,18 +630,7 @@ public class MainActivity extends AppCompatActivity {
                         String o3Value = iaqiJsonObject.getJSONObject("o3").getString("v"); Log.e("O3_VALUE", o3Value);
                         o3IVTextView.setText(o3Value);
                         double o3 = Double.parseDouble(o3Value);
-                        if (o3 >= 0 && o3 <= 50)
-                            o3View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#7ECF7C")));
-                        else if (o3 >= 51 && o3 <= 100)
-                            o3View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FCEE70")));
-                        else if (o3 >= 101 && o3 <= 150)
-                            o3View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FDAD50")));
-                        else if (o3 >= 151 && o3 <= 200)
-                            o3View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
-                        else if (o3 >= 200 && o3 <= 300)
-                            o3View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#C17EBB")));
-                        else
-                            o3View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
+                        changeViewColor(o3, o3View);
                     } else {
                         o3IVTextView.setText("---");
                         o3View.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#898888")));
@@ -718,7 +650,22 @@ public class MainActivity extends AppCompatActivity {
         weatherInfoRequest.add(aqiDataRequest);
     }
 
-    public static Drawable changeDrawableColor(Context context,int background, int newColor) {
+    private void changeViewColor(double value, View view) {
+        if (value >= 0 && value <= 50)
+            view.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#7ECF7C")));
+        else if (value >= 51 && value <= 100)
+            view.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FCEE70")));
+        else if (value >= 101 && value <= 150)
+            view.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FDAD50")));
+        else if (value >= 151 && value <= 200)
+            view.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
+        else if (value >= 200 && value <= 300)
+            view.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#C17EBB")));
+        else
+            view.setBackground(changeDrawableColor(this, R.drawable.iaqi_indicator, Color.parseColor("#FF6262")));
+    }
+
+    private static Drawable changeDrawableColor(Context context,int background, int newColor) {
         Drawable mDrawable = Objects.requireNonNull(ContextCompat.getDrawable(context, background)).mutate();
         mDrawable.setColorFilter(new PorterDuffColorFilter(newColor, PorterDuff.Mode.SRC_IN));
         return mDrawable;
